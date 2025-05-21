@@ -1,0 +1,35 @@
+@startuml changgou_code
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title 品牌管理代码结构
+
+Component(brand_controller, "BrandController", "Spring MVC", "品牌管理接口") {
+    Component(getBrandList, "getBrandList()", "Java方法", "获取品牌列表")
+    Component(addBrand, "addBrand()", "Java方法", "添加品牌")
+    Component(updateBrand, "updateBrand()", "Java方法", "更新品牌")
+    Component(deleteBrand, "deleteBrand()", "Java方法", "删除品牌")
+}
+
+Component(brand_service, "BrandService", "Java接口", "品牌业务逻辑") {
+    Component(findPage, "findPage()", "Java方法", "分页查询")
+    Component(add, "add()", "Java方法", "添加品牌")
+    Component(update, "update()", "Java方法", "更新品牌")
+    Component(delete, "delete()", "Java方法", "删除品牌")
+}
+
+Component(brand_mapper, "BrandMapper", "MyBatis", "品牌数据访问") {
+    Component(selectByExample, "selectByExample()", "SQL映射", "条件查询")
+    Component(insert, "insert()", "SQL映射", "插入数据")
+    Component(updateByPrimaryKey, "updateByPrimaryKey()", "SQL映射", "更新数据")
+    Component(deleteByPrimaryKey, "deleteByPrimaryKey()", "SQL映射", "删除数据")
+}
+
+Rel(getBrandList, findPage, "调用", "Java方法")
+Rel(addBrand, add, "调用", "Java方法") 
+Rel(updateBrand, update, "调用", "Java方法")
+Rel(deleteBrand, delete, "调用", "Java方法")
+Rel(findPage, selectByExample, "调用", "MyBatis")
+Rel(add, insert, "调用", "MyBatis")
+Rel(update, updateByPrimaryKey, "调用", "MyBatis")
+Rel(delete, deleteByPrimaryKey, "调用", "MyBatis")
+@enduml

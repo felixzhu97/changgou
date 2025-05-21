@@ -1,0 +1,13 @@
+@startuml changgou_context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+title 畅购商城系统上下文图
+
+Person(用户, "用户", "商城系统的使用者")
+Person(管理员, "管理员", "系统管理人员")
+
+System(商城系统, "畅购商城", "提供电商服务")
+
+Rel(用户, 商城系统, "浏览商品\n下订单\n支付")
+Rel(管理员, 商城系统, "管理系统\n查看报表")
+@enduml

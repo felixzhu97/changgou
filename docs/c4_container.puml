@@ -1,0 +1,27 @@
+@startuml changgou_container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+title 畅购商城容器图
+
+Person(用户, "用户", "商城系统的使用者")
+
+System_Boundary(商城系统, "畅购商城") {
+    Container(eureka, "Eureka", "Spring Cloud", "服务注册中心")
+    Container(gateway, "API网关", "Spring Cloud Gateway", "请求路由和过滤")
+    Container(goods_service, "商品服务", "Spring Boot", "商品管理功能")
+    Container(order_service, "订单服务", "Spring Boot", "订单管理功能")
+    Container(user_service, "用户服务", "Spring Boot", "用户管理功能")
+    ContainerDb(mysql, "MySQL", "关系型数据库", "存储业务数据")
+    ContainerDb(redis, "Redis", "缓存", "缓存热点数据")
+}
+
+Rel(用户, gateway, "使用", "HTTP")
+Rel(gateway, eureka, "注册/发现", "HTTP")
+Rel(gateway, goods_service, "调用", "HTTP")
+Rel(gateway, order_service, "调用", "HTTP") 
+Rel(gateway, user_service, "调用", "HTTP")
+Rel(goods_service, mysql, "读写", "JDBC")
+Rel(order_service, mysql, "读写", "JDBC")
+Rel(user_service, mysql, "读写", "JDBC")
+Rel(goods_service, redis, "缓存", "Redis协议")
+@enduml

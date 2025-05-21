@@ -1,0 +1,26 @@
+@startuml changgou_component
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+title 商品服务组件图
+
+Container(goods_service, "商品服务", "Spring Boot", "商品管理功能")
+
+System_Boundary(goods_service, "商品服务") {
+    Component(brand_controller, "BrandController", "Spring MVC", "品牌管理接口")
+    Component(category_controller, "CategoryController", "Spring MVC", "分类管理接口")
+    Component(goods_controller, "GoodsController", "Spring MVC", "商品管理接口")
+    Component(brand_service, "BrandService", "Java", "品牌业务逻辑")
+    Component(category_service, "CategoryService", "Java", "分类业务逻辑")
+    Component(goods_service_impl, "GoodsServiceImpl", "Java", "商品业务逻辑")
+    Component(brand_mapper, "BrandMapper", "MyBatis", "品牌数据访问")
+    Component(category_mapper, "CategoryMapper", "MyBatis", "分类数据访问")
+    Component(goods_mapper, "GoodsMapper", "MyBatis", "商品数据访问")
+}
+
+Rel(brand_controller, brand_service, "调用", "Java方法")
+Rel(category_controller, category_service, "调用", "Java方法")
+Rel(goods_controller, goods_service_impl, "调用", "Java方法")
+Rel(brand_service, brand_mapper, "调用", "MyBatis")
+Rel(category_service, category_mapper, "调用", "MyBatis")
+Rel(goods_service_impl, goods_mapper, "调用", "MyBatis")
+@enduml
